@@ -17,6 +17,7 @@
 				type="text"
 				name="username"
 				id="username"
+				required
 				class:input-error={$errors.username}
 				data-invalid={$errors.username}
 				bind:value={$form.username}
@@ -27,6 +28,24 @@
 			<span class="text-red-400">{$errors.username}</span>
 		{/if}
 
+		<label class="label" for="email">
+			<span class="block">Email</span>
+			<input
+				class="input"
+				type="email"
+				name="email"
+				id="email"
+				required
+				class:input-error={$errors.email}
+				data-invalid={$errors.email}
+				bind:value={$form.email}
+				{...$constraints.email}
+			/>
+		</label>
+		{#if $errors.email}
+			<span class="text-red-400">{$errors.email}</span>
+		{/if}
+
 		<label class="label" for="password">
 			<span class="block">Password</span>
 			<input
@@ -34,6 +53,7 @@
 				type="password"
 				name="password"
 				id="password"
+				required
 				class:input-error={$errors.password}
 				data-invalid={$errors.password}
 				bind:value={$form.password}

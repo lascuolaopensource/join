@@ -10,21 +10,22 @@
 	<h1>Log in</h1>
 
 	<form method="POST" class="mt-8 space-y-8" use:enhance>
-		<label class="label" for="username">
-			<span class="block">Username</span>
+		<label class="label" for="email">
+			<span class="block">Email</span>
 			<input
 				class="input"
-				type="text"
-				name="username"
-				id="username"
-				class:input-error={$errors.username}
-				data-invalid={$errors.username}
-				bind:value={$form.username}
-				{...$constraints.username}
+				type="email"
+				name="email"
+				id="email"
+				required
+				class:input-error={$errors.email}
+				data-invalid={$errors.email}
+				bind:value={$form.email}
+				{...$constraints.email}
 			/>
 		</label>
-		{#if $errors.username}
-			<span class="text-red-400">{$errors.username}</span>
+		{#if $errors.email}
+			<span class="text-red-400">{$errors.email}</span>
 		{/if}
 
 		<label class="label" for="password">
@@ -34,6 +35,7 @@
 				type="password"
 				name="password"
 				id="password"
+				required
 				class:input-error={$errors.password}
 				data-invalid={$errors.password}
 				bind:value={$form.password}

@@ -17,7 +17,8 @@ model AuthUser {
 
   // here you can add custom fields for your user
   // e.g. name, email, username, roles, etc.
-  username String @unique
+  username String?
+  email    String  @unique
 
   @@map("auth_users")
 }
