@@ -3,7 +3,7 @@
 		<span
 			class=" bg-gradient-to-r from-blue-400 to-purple-400 box-decoration-clone bg-clip-text text-7xl font-bold text-transparent"
 		>
-			SvelteKit Enterprise Stack
+			JOIN
 		</span>
 	</h1>
 
@@ -11,10 +11,4 @@
 		Every part of the SvelteKit enterprise stack is optimized to go blazingly
 		fast and please stakeholders.
 	</span>
-
-	<img
-		class="h-80 w-80 rounded-full object-cover"
-		src="https://haha.business/business.jpg"
-		alt="Business person laughing"
-	/>
 </div>

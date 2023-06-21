@@ -17,6 +17,7 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			auth: import('lucia-auth').AuthRequest
+			prisma: import('$lib/server/database').db
 		}
 		// interface PageData {}
 		// interface Platform {}

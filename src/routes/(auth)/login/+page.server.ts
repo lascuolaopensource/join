@@ -18,20 +18,21 @@ export const actions = {
 	async default({ request, locals }) {
 		const data = await request.formData()
 		const form = await superValidate(data, loginSchema)
-
+    
 		if (!form.valid) {
 			return fail(400, { form })
 		}
 
 		try {
 			const key = await auth.useKey(
-				'email',
+				'username',
 				form.data.email,
 				form.data.password
 			)
 			const session = await auth.createSession(key.userId)
 			locals.auth.setSession(session)
 		} catch (error) {
+			console.log(error)
 			return setError(form, 'email', 'Invalid credentials')
 		}
 	},

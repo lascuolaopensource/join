@@ -18,6 +18,8 @@
 		"@playwright/test": "^1.35.1",
 		"@sveltejs/adapter-node": "^1.2.4",
 		"@sveltejs/kit": "^1.20.4",
+		"@types/jsonwebtoken": "^9.0.2",
+		"@types/nodemailer": "^6.4.8",
 		"@typescript-eslint/eslint-plugin": "^5.59.11",
 		"@typescript-eslint/parser": "^5.59.11",
 		"autoprefixer": "^10.4.14",
@@ -39,15 +41,17 @@
 	},
 	"dependencies": {
 		"@lucia-auth/adapter-prisma": "^2.0.0",
-		"lucia-auth": "^1.8.0",
-		"prisma": "^4.15.0",
 		"@prisma/client": "^4.15.0",
-		"stripe": "^12.9.0",
-		"tailwindcss": "^3.3.2",
-		"@tailwindcss/forms": "^0.5.3",
 		"@skeletonlabs/skeleton": "^1.7.1",
-		"sveltekit-superforms": "^1.0.0",
+		"@tailwindcss/forms": "^0.5.3",
+		"jsonwebtoken": "^9.0.0",
+		"lucia-auth": "^1.8.0",
 		"lucide-svelte": "^0.246.0",
+		"nodemailer": "^6.9.3",
+		"prisma": "^4.15.0",
+		"stripe": "^12.9.0",
+		"sveltekit-superforms": "^1.0.0",
+		"tailwindcss": "^3.3.2",
 		"zod": "^3.21.4"
 	}
 }

@@ -17,10 +17,12 @@ model AuthUser {
 
   // here you can add custom fields for your user
   // e.g. name, email, username, roles, etc.
-  username String?
+  username String
   email    String  @unique
+  verified Boolean @default(false)
+  blocked  Boolean @default(false)
 
-  @@map("auth_users")
+  @@map("users")
 }
 
 model AuthSession {
