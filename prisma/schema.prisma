@@ -15,8 +15,6 @@ model AuthUser {
   auth_session AuthSession[]
   auth_key     AuthKey[]
 
-  // here you can add custom fields for your user
-  // e.g. name, email, username, roles, etc.
   username String
   email    String  @unique
   verified Boolean @default(false)
@@ -46,4 +44,12 @@ model AuthKey {
 
   @@index([user_id])
   @@map("auth_keys")
+}
+
+model JWT {
+  id        String   @id @default(uuid())
+  email     String
+  token     String   @unique
+  valid     Boolean  @default(false)
+  createdAt DateTime @default(now())
 }

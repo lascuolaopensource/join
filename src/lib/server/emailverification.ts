@@ -7,14 +7,20 @@ export async function sendEmail(sendTo: string) {
 	try {
 		// Generazione del token JWT
 		const token = jwt.sign({ email: sendTo }, env.JWT_SECRET, {
-			expiresIn: '20m',
+			expiresIn: env.JWT_EXPIRE,
+		})
+		await prisma.jWT.create({
+			data: {
+				email: sendTo,
+				token: token,
+				valid: true,
+			},
 		})
 		const link = 'http://localhost:5173/verification/' + token
 
 		const verificationTemplate = `
 			<h1>Welcome to JOIN!</h1>
 			<h3>Follow <a href="${link}">this</a> link to verify your email.</h3>
-			<p>This is a test</p>
 		  `
 
 		// create reusable transporter object using the default SMTP transport
@@ -45,49 +51,67 @@ export async function sendEmail(sendTo: string) {
 export async function verifyUserEmail(token: string) {
 	let returnStatus = ''
 	try {
-		// const decoded = jwt.verify(String(token), env.JWT_SECRET)
 		let email = ''
-		jwt.verify(token, env.JWT_SECRET, (error, decoded) => {
-			if (error) {
-				switch (error.name) {
-					case 'TokenExpiredError':
-						returnStatus = 'expired'
-						break
-					case 'JsonWebTokenError':
-						returnStatus = 'invalid'
-						break
-					default:
-						break
-				}
-			} else if (decoded) {
-				email = decoded.email
-				returnStatus = 'valid'
-			}
+		const JWT = await prisma.jWT.findUnique({
+			where: { token: token },
 		})
-		if (email !== '') {
-			try {
-				const user = await prisma.authUser.findUnique({
-					where: { email: email },
-				})
-				await prisma.authUser
-					.update({
-						where: {
-							id: user?.id,
-						},
-						data: {
-							verified: true,
-						},
+		if (JWT?.valid) {
+			jwt.verify(token, env.JWT_SECRET, (error, decoded) => {
+				if (error) {
+					switch (error.name) {
+						case 'TokenExpiredError':
+							returnStatus = 'expired'
+							break
+						case 'JsonWebTokenError':
+							returnStatus = 'invalid'
+							break
+						default:
+							break
+					}
+				} else if (decoded) {
+					email = decoded.email
+					returnStatus = 'valid'
+				}
+			})
+			if (email !== '') {
+				try {
+					const user = await prisma.authUser.findUnique({
+						where: { email: email },
 					})
-					.then((i) => {
-						returnStatus = 'verified'
-						console.log(i.email)
-					})
-			} catch (error) {
-				console.log(error)
+					await prisma.authUser
+						.update({
+							where: {
+								id: user?.id,
+							},
+							data: {
+								verified: true,
+							},
+						})
+						.then((i) => {
+							invalidateJWT(token)
+							returnStatus = 'verified'
+							console.log('Verified Email:', i.email)
+						})
+				} catch (error) {
+					console.log(error)
+				}
 			}
+		} else {
+			returnStatus = 'invalid'
 		}
 	} catch (error) {
 		console.log(error)
 	}
 	return returnStatus
+}
+
+async function invalidateJWT(token: string) {
+	try {
+		await prisma.jWT.update({
+			where: { token: token },
+			data: { valid: false },
+		})
+	} catch (error) {
+		console.log(error)
+	}
 }

@@ -7,6 +7,7 @@ import { env } from '$env/dynamic/private'
 export async function load({ locals }) {
 	const { user } = await locals.auth.validateUser()
 	if (!user) throw redirect(302, '/login')
+
 	const user_data = await db.authUser.findUnique({
 		where: {
 			id: user?.userId,

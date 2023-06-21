@@ -18,7 +18,7 @@ export const actions = {
 	async default({ request, locals }) {
 		const data = await request.formData()
 		const form = await superValidate(data, loginSchema)
-    
+
 		if (!form.valid) {
 			return fail(400, { form })
 		}

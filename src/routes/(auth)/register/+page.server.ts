@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit'
 import { superValidate, setError } from 'sveltekit-superforms/server'
-
+import { sendEmail } from '$lib/server/emailverification'
 import { auth } from '$lib/server/auth'
 import { registerSchema } from '$lib/zod/schema'
 
@@ -35,6 +35,7 @@ export const actions = {
 					username: form.data.username,
 				},
 			})
+			sendEmail(form.data.email)
 			const session = await auth.createSession(user.userId)
 			locals.auth.setSession(session)
 		} catch (error) {
