@@ -32,7 +32,8 @@ export const actions = {
 				},
 				attributes: {
 					email: form.data.email,
-					username: form.data.username,
+					name: form.data.name,
+					surname: form.data.surname,
 				},
 			})
 			sendEmail(form.data.email)

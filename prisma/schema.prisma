@@ -15,7 +15,8 @@ model AuthUser {
   auth_session AuthSession[]
   auth_key     AuthKey[]
 
-  username String
+  name     String
+  surname  String
   email    String  @unique
   verified Boolean @default(false)
   blocked  Boolean @default(false)

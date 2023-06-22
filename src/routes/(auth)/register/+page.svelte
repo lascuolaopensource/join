@@ -10,22 +10,40 @@
 	<h1>Register</h1>
 
 	<form method="POST" class="mt-8 space-y-8" use:enhance>
-		<label class="label" for="username">
-			<span class="block">Username</span>
+		<label class="label" for="name">
+			<span class="block">First Name</span>
 			<input
 				class="input"
 				type="text"
-				name="username"
-				id="username"
+				name="name"
+				id="name"
 				required
-				class:input-error={$errors.username}
-				data-invalid={$errors.username}
-				bind:value={$form.username}
-				{...$constraints.username}
+				class:input-error={$errors.name}
+				data-invalid={$errors.name}
+				bind:value={$form.name}
+				{...$constraints.name}
 			/>
 		</label>
-		{#if $errors.username}
-			<span class="text-red-400">{$errors.username}</span>
+		{#if $errors.name}
+			<span class="text-red-400">{$errors.name}</span>
+		{/if}
+
+		<label class="label" for="surname">
+			<span class="block">Last Name</span>
+			<input
+				class="input"
+				type="text"
+				name="surname"
+				id="surname"
+				required
+				class:input-error={$errors.surname}
+				data-invalid={$errors.surname}
+				bind:value={$form.surname}
+				{...$constraints.surname}
+			/>
+		</label>
+		{#if $errors.surname}
+			<span class="text-red-400">{$errors.surname}</span>
 		{/if}
 
 		<label class="label" for="email">
