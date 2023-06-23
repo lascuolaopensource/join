@@ -1,3 +1,2 @@
-backend/pocketbase
 backend/pb_data/*.db-*
 .DS_Store
