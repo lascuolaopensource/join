@@ -2,7 +2,7 @@ MAKEFLAGS += -j2
 
 bg:
 	@echo "🚀 Launching the Backend" 
-	cd backend && docker compose up -d
+	cd backend && docker-compose up -d
 fg:
 	@echo "🚀 Launching the Frontend" 
 	cd frontend && pnpm i && pnpm dev
@@ -15,4 +15,4 @@ up: bg fg ## 💄 Run all the components quickly
 
 down:
 	@echo "🛑 Stopping the Backend" 
-	cd backend && docker compose down
+	cd backend && docker-compose down
