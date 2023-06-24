@@ -17,26 +17,21 @@
 </script>
 
 <script lang="ts" generics="T extends AnyZodObject">
-	import type { SvelteComponent } from 'svelte/internal';
-
+	// Logic
 	import { setContext } from 'svelte';
+	import type { SuperForm } from 'sveltekit-superforms/client';
+	import type { ZodValidation } from 'sveltekit-superforms';
+
+	// Components
 	import { Modal, modalStore } from '@skeletonlabs/skeleton';
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
-	import type { SuperValidated, UnwrapEffects } from 'sveltekit-superforms';
 	import { ConicGradient } from '@skeletonlabs/skeleton';
 	import type { ConicStop } from '@skeletonlabs/skeleton';
-	import type { SuperForm } from 'sveltekit-superforms/client';
 
 	//
 
-	export let superform: SuperForm<UnwrapEffects<T>, any>;
-	export let showRequiredIndicator = true;
-
-	export let submitButtonOptions: {
-		useDefault?: boolean;
-		text?: string;
-	} = { useDefault: true, text: 'Submit' };
-	console.log(submitButtonOptions);
+	export let superform: SuperForm<ZodValidation<T>, unknown>;
+	export let showRequiredIndicator = false;
 
 	export let className = 'space-y-6';
 
@@ -64,7 +59,7 @@
 
 	const { errors, enhance, delayed, message } = superform;
 
-	$: console.log($errors);
+	// $: console.log($errors);
 	// $: error = Boolean($message) ? $message : $errors._errors ? $errors._errors.join('\n') : '';
 
 	setContext<FormContext<T>>(FORM_KEY, { superform, showRequiredIndicator });
