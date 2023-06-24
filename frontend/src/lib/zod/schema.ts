@@ -11,11 +11,3 @@ export const passwordReset = z.object({
 export const reqPasswordReset = z.object({
 	email: z.string()
 });
-
-export const registerSchema = z.object({
-	name: z.string(),
-	surname: z.string(),
-	email: z.string(),
-	password: z.string(),
-	passwordConfirm: z.string()
-});
