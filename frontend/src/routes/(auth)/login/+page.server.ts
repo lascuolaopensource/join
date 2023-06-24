@@ -4,6 +4,7 @@ import { superValidate, setError } from 'sveltekit-superforms/server';
 import { pb } from '$lib/pocketbase';
 import paths from '$lib/constants/paths';
 import { loginSchema } from './schema';
+import { Collections } from '$lib/pocketbase/types';
 
 export async function load() {
 	const form = await superValidate(loginSchema);
@@ -15,16 +16,16 @@ export const actions: Actions = {
 		const data = await request.formData();
 		const form = await superValidate(data, loginSchema);
 
-		await new Promise((resolve) => setTimeout(resolve, 2000));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 
-		// if (!form.valid) {
-		// 	return fail(400, { form });
-		// }
-		// try {
-		// 	await pb.collection('users').authWithPassword(form.data.email, form.data.password);
-		// } catch (e) {
-		// 	return setError(form, 'email', 'Wrong Credentials');
-		// }
-		// throw redirect(302, paths.account);
+		try {
+			await pb.collection(Collections.Users).authWithPassword(form.data.email, form.data.password);
+		} catch (e) {
+			return setError(form, 'email', 'Wrong Credentials');
+		}
+
+		throw redirect(302, paths.account);
 	}
 };

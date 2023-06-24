@@ -21,7 +21,7 @@
 	<h1>Log in</h1>
 
 	<Form {superform} showRequiredIndicator={false}>
-		<Input type="text" field="email" />
+		<Input type="email" field="email" />
 		<Input type="password" field="password" />
 
 		<p>
