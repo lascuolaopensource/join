@@ -1,19 +1,21 @@
 import paths from '$lib/constants/paths';
 import type { Actions } from './$types';
-import { error, fail, redirect, type ServerLoad } from '@sveltejs/kit';
-import { superValidate, setError } from 'sveltekit-superforms/server';
-import { reqPasswordReset } from '$lib/zod/schema';
+import { fail, redirect, type ServerLoad } from '@sveltejs/kit';
+import { superValidate } from 'sveltekit-superforms/server';
+import { requestPasswordResetSchema } from './schema';
 import { pb } from '$lib/pocketbase';
 
-export const load: ServerLoad = async ({ locals }) => {
-	// always return `form` in load and form actions
-	const form = await superValidate(null, reqPasswordReset);
+//
+
+export const load: ServerLoad = async () => {
+	const form = await superValidate(null, requestPasswordResetSchema);
 	return { form };
 };
+
 export const actions: Actions = {
 	default: async ({ request, params }) => {
 		const data = await request.formData();
-		const form = await superValidate(data, reqPasswordReset);
+		const form = await superValidate(data, requestPasswordResetSchema);
 
 		if (!form.valid) {
 			return fail(400, { form });
@@ -24,6 +26,7 @@ export const actions: Actions = {
 			console.log(error);
 			return fail(400, { form });
 		}
+
 		throw redirect(302, paths.passwordReset.thanks);
 	}
 };
