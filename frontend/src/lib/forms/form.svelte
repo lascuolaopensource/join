@@ -65,7 +65,7 @@
 	setContext<FormContext<T>>(FORM_KEY, { superform, showRequiredIndicator });
 </script>
 
-<form class={className} method="post" use:enhance>
+<form class={className} method="post" use:enhance enctype="multipart/form-data">
 	<slot />
 
 	<!-- {#if error}
