@@ -37,7 +37,7 @@ export type ActivitiesRecord = {
 	price: number
 	confirmed?: boolean
 	users?: RecordIdString[]
-	gallery?: string[]
+	gallery?: string
 	enrollmentMin?: number
 	enrollmentMax?: number
 	enrollmentDeadline: IsoDateString

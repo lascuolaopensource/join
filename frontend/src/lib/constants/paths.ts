@@ -17,7 +17,7 @@ export default {
 	activities: {
 		index: '/activities',
 		archive: '/activities?archive=true',
-		admin: '/activities/admin',
+		create: '/activities/create',
 		enroll: {
 			index: (course: string) => `/activities/${course}/enroll`,
 			thanks: (course: string) => `/activities/${course}/enroll/thanks`
