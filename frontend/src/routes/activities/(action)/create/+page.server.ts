@@ -24,18 +24,12 @@ export const actions: Actions = {
 		try {
 			const slug = convertToSlug(form.data.name);
 			console.log(form.data.gallery);
-			const newActivity = {
-				name: form.data.name,
-				description: form.data.description,
-				price: form.data.price,
-				gallery: form.data.gallery,
-				confirmed: false,
-				enrollmentMin: form.data.enrollmentMin,
-				enrollmentMax: form.data.enrollmentMax,
-				enrollmentDeadline: form.data.enrollmentDeadline,
-				slug: slug
-			};
-			await pb.collection(Collections.Activities).create(newActivity);
+
+			//
+			data.append('slug', slug);
+			data.append('confirmed', 'false');
+
+			await pb.collection(Collections.Activities).create(data);
 		} catch (error) {
 			return fail(400, { form });
 		}
