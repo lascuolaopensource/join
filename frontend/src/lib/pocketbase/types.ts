@@ -4,6 +4,7 @@
 
 export enum Collections {
 	Activities = "activities",
+	Enrollments = "enrollments",
 	Users = "users",
 }
 
@@ -44,29 +45,36 @@ export type ActivitiesRecord = {
 	slug: string
 }
 
-export enum UsersRoleOptions {
-	"regularUser" = "regularUser",
-	"activitiesAdmin" = "activitiesAdmin",
+export type EnrollmentsRecord = {
+	owner: RecordIdString
+	activity: RecordIdString
+}
+
+export enum UsersRolesOptions {
+	"admin" = "admin",
 }
 export type UsersRecord = {
 	name: string
 	surname: string
-	role: UsersRoleOptions
-	phone?: number
+	roles?: UsersRolesOptions
+	phone?: string
 }
 
 // Response types include system fields and match responses from the PocketBase API
 export type ActivitiesResponse<Texpand = unknown> = Required<ActivitiesRecord> & BaseSystemFields<Texpand>
+export type EnrollmentsResponse<Texpand = unknown> = Required<EnrollmentsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
 
 export type CollectionRecords = {
 	activities: ActivitiesRecord
+	enrollments: EnrollmentsRecord
 	users: UsersRecord
 }
 
 export type CollectionResponses = {
 	activities: ActivitiesResponse
+	enrollments: EnrollmentsResponse
 	users: UsersResponse
 }
