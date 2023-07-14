@@ -1,11 +1,10 @@
 <script lang="ts">
-	import type { ActivitiesResponse } from '$lib/pocketbase/types';
 	export let data;
-	const { activities }: ActivitiesResponse = data;
+	const { activities } = data;
 </script>
 
 <h2>Activities</h2>
-{#if activities}
+{#if activities && activities.length}
 	<div class="grid grid-cols-4 gap-4">
 		{#each activities as activity}
 			<div class="card">
