@@ -1,6 +1,7 @@
 export const serializeNonPOJOs = (value: object | null) => {
 	return structuredClone(value);
 };
+
 export const convertToSlug = (str: string): string => {
 	return str
 		.trim()
