@@ -14,6 +14,7 @@
 			<li>Name: {user.name} {user.surname}</li>
 			<li>Email: {user.email}</li>
 			<li>Verified: {user.verified}</li>
+			<li>Role: {user.role}</li>
 		</ul>
 		<form method="post" action="/sendVerification" use:enhance>
 			<button class="btn variant-filled" type="submit">Send Email Verification</button>

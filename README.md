@@ -23,3 +23,8 @@
 
 - [Backend](http://localhost:8090/_/)
 - [Frontend](http://localhost:5173)
+
+# Login
+
+- join@lascuolaopensource.xyz
+- joinjoinjoin

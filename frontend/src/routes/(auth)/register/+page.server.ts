@@ -28,7 +28,8 @@ export const actions: Actions = {
 				password: form.data.password,
 				passwordConfirm: form.data.passwordConfirm,
 				name: form.data.name,
-				surname: form.data.surname
+				surname: form.data.surname,
+				role: 'regularUser'
 			};
 			await pb.collection(Collections.Users).create(newUser);
 			await pb.collection(Collections.Users).requestVerification(form.data.email);

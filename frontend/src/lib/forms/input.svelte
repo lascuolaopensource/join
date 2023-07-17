@@ -1,5 +1,14 @@
 <script lang="ts" context="module">
-	export type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url';
+	export type InputType =
+		| 'text'
+		| 'email'
+		| 'password'
+		| 'number'
+		| 'tel'
+		| 'url'
+		| 'file'
+		| 'textarea'
+		| 'date';
 </script>
 
 <script lang="ts">

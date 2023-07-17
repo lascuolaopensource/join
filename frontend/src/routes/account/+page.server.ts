@@ -4,7 +4,7 @@ import { pb } from '$lib/pocketbase';
 import type { Actions } from './$types';
 
 export const load = async ({ locals }) => {
-	if (!locals.user) throw redirect(302, paths.login);
+	if (!locals?.user) throw redirect(302, paths.login);
 	return { user: locals.user };
 };
 

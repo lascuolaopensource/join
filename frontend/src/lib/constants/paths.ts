@@ -14,12 +14,13 @@ export default {
 		confirm: '/password-reset/confirm'
 	},
 	account: '/account',
-	courses: {
-		index: '/courses',
-		archive: '/courses?archive=true',
+	activities: {
+		index: '/activities',
+		archive: '/activities?archive=true',
+		create: '/activities/create',
 		enroll: {
-			index: (course: string) => `/courses/${course}/enroll`,
-			thanks: (course: string) => `/courses/${course}/enroll/thanks`
+			index: (course: string) => `/activities/${course}/enroll`,
+			thanks: (course: string) => `/activities/${course}/enroll/thanks`
 		}
 	},
 	admin: {

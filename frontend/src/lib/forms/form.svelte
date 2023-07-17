@@ -65,7 +65,7 @@
 	setContext<FormContext<T>>(FORM_KEY, { superform, showRequiredIndicator });
 </script>
 
-<form class={className} method="post" use:enhance>
+<form class={className} method="post" use:enhance enctype="multipart/form-data">
 	<slot />
 
 	<!-- {#if error}
@@ -73,6 +73,6 @@
 	{/if} -->
 </form>
 
-<div class="absolute w-0 h-0 bottom-0 right-0">
+<div class="fixed top-0 left-0">
 	<Modal />
 </div>
