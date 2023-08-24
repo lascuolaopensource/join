@@ -35,7 +35,7 @@ export type AuthSystemFields<T = never> = {
 export type ActivitiesRecord = {
 	name: string
 	description: HTMLString
-	price: number
+	price?: number
 	confirmed?: boolean
 	users?: RecordIdString[]
 	gallery?: string
@@ -45,9 +45,16 @@ export type ActivitiesRecord = {
 	slug: string
 }
 
+export enum EnrollmentsStateOptions {
+	"pending" = "pending",
+	"rejected" = "rejected",
+	"accepted" = "accepted",
+	"payment" = "payment",
+}
 export type EnrollmentsRecord = {
 	owner: RecordIdString
 	activity: RecordIdString
+	state: EnrollmentsStateOptions
 }
 
 export enum UsersRolesOptions {

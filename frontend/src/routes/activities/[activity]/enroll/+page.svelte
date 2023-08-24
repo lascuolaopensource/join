@@ -5,6 +5,7 @@
 	import Input from '$lib/forms/input.svelte';
 	import { ArrowLeft } from 'lucide-svelte';
 	import SubmitButton from '$lib/forms/submitButton.svelte';
+	import Backlink from '$lib/components/backlink.svelte';
 
 	export let data;
 	const { user, form, activity } = data;
@@ -18,12 +19,8 @@
 	});
 </script>
 
-<a class="flex items-center gap-1" href={`/activities/${activity.slug}`}>
-	<span>
-		<ArrowLeft size="20" />
-	</span>
-	<span> Back to activity </span>
-</a>
+<Backlink href={`/activities/${activity.slug}`}>Back to activity</Backlink>
+
 <h4>{activity.name}</h4>
 <h2>Enroll</h2>
 <Form {superform}>
