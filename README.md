@@ -27,4 +27,4 @@
 # Login
 
 - join@lascuolaopensource.xyz
-- joinjoinjoin
+- joinjoin

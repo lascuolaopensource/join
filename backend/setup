@@ -2,7 +2,7 @@
 set -e # exit on any non-zero status (error)
 
 if [ ! -x "pb" ]; then
-  echo "go build"
+  echo "📦 Build PB"
   go mod tidy
   go build
 fi
