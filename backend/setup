@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e # exit on any non-zero status (error)
+
+if [ ! -x "pb" ]; then
+  echo "go build"
+  go mod tidy
+  go build
+fi
+
+exec "$@"
