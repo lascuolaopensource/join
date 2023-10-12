@@ -1,8 +1,12 @@
 #!/bin/sh
 set -e # exit on any non-zero status (error)
 
+if [ ! -d ./pb_data ]; then \
+    mkdir ./pb_data; \
+fi
+
 if [ ! -x "pb" ]; then
-  echo "📦 Build PB"
+  echo "build ./pb"
   go mod tidy
   go build
 fi
