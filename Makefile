@@ -20,8 +20,20 @@ clean_backend: ## 🧹 Clean the backend build
 
 clean: clean_backend
 
-be: ## ⚙️ Run the backend
+be: ## ⚙️ Run the backend locally
+	@echo "⚙️ Run the backend locally"
 	./backend/pb serve
+
+be_up: ## ⚙️ Run the backend in docker
+	@echo "⚙️ Run the backend in docker"
+	cd ./backend && docker compose up -d
+	@echo " "
+
+be_down: ## ⛔ Stop the running backend in docker
+	@echo "⛔ Stop the running backend in docker"
+	cd ./backend && docker compose down
+	@echo " "
+
 
 dev:
 	$(MAKE) be -j2
