@@ -1,3 +1,2 @@
-backend/pb_data/*.db-*
-backend/pb_data/logs.db
+backend/pb_data/*
 .DS_Store
