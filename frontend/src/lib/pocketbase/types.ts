@@ -12,6 +12,7 @@ export enum Collections {
 	PaymentsBillingData = "payments_billing_data",
 	PaymentsBillingDataType = "payments_billing_data_type",
 	Users = "users",
+	UsersInfo = "users_info",
 	UsersRoles = "users_roles",
 }
 
@@ -110,19 +111,20 @@ export type PaymentsBillingDataTypeRecord<Tschema = unknown> = {
 }
 
 export type UsersRecord = {
-	name: string
-	surname: string
 	phone?: string
+	roles?: RecordIdString[]
+	info: RecordIdString
 }
 
-export enum UsersRolesRolesOptions {
-	"admin" = "admin",
-	"enrollments" = "enrollments",
-	"tools" = "tools",
+export type UsersInfoRecord = {
+	name: string
+	surname: string
+	bio?: HTMLString
+	avatar?: string
 }
+
 export type UsersRolesRecord = {
-	user: RecordIdString
-	roles?: UsersRolesRolesOptions[]
+	name: string
 }
 
 // Response types include system fields and match responses from the PocketBase API
@@ -135,6 +137,7 @@ export type PaymentsResponse<Texpand = unknown> = Required<PaymentsRecord> & Bas
 export type PaymentsBillingDataResponse<Tdata = unknown, Texpand = unknown> = Required<PaymentsBillingDataRecord<Tdata>> & BaseSystemFields<Texpand>
 export type PaymentsBillingDataTypeResponse<Tschema = unknown, Texpand = unknown> = Required<PaymentsBillingDataTypeRecord<Tschema>> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
+export type UsersInfoResponse<Texpand = unknown> = Required<UsersInfoRecord> & BaseSystemFields<Texpand>
 export type UsersRolesResponse<Texpand = unknown> = Required<UsersRolesRecord> & BaseSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
@@ -149,6 +152,7 @@ export type CollectionRecords = {
 	payments_billing_data: PaymentsBillingDataRecord
 	payments_billing_data_type: PaymentsBillingDataTypeRecord
 	users: UsersRecord
+	users_info: UsersInfoRecord
 	users_roles: UsersRolesRecord
 }
 
@@ -162,5 +166,6 @@ export type CollectionResponses = {
 	payments_billing_data: PaymentsBillingDataResponse
 	payments_billing_data_type: PaymentsBillingDataTypeResponse
 	users: UsersResponse
+	users_info: UsersInfoResponse
 	users_roles: UsersRolesResponse
 }
