@@ -12,7 +12,7 @@
 
 <div class="card m-auto mt-16 max-w-md p-8">
 	<Form {superform}>
-		<h2>Update Password</h2>
+		<h2 class="h2">Update Password</h2>
 		<Input field="password" type="password" />
 		<Input field="passwordConfirm" type="password" />
 		<SubmitButton />

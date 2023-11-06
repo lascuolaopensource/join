@@ -13,7 +13,7 @@
 
 <div class="card m-auto mt-16 max-w-md p-8">
 	<Form {superform}>
-		<h2>Register</h2>
+		<h2 class="h2">Register</h2>
 		<Input field="name" />
 		<Input field="surname" />
 		<Input field="email" />

@@ -12,7 +12,7 @@
 
 <div class="card m-auto mt-10 max-w-md p-5">
 	<Form {superform}>
-		<h2>New Activity</h2>
+		<h2 class="h2">New Activity</h2>
 		<Input field="name" />
 		<Input field="description" />
 		<Input field="price" type="number" />

@@ -3,7 +3,7 @@
 	const { activities } = data;
 </script>
 
-<h2>Activities</h2>
+<h2 class="h2">Activities</h2>
 {#if activities && activities.length}
 	<div class="grid grid-cols-4 gap-4">
 		{#each activities as activity}

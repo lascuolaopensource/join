@@ -9,7 +9,7 @@
 	const enrollUrl = `${$page.url.pathname}/enroll`;
 </script>
 
-<h2>{activity.name}</h2>
+<h2 class="h2">{activity.name}</h2>
 <div>
 	{@html activity.description}
 </div>
