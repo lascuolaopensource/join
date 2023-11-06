@@ -12,7 +12,7 @@
 
 <div class="card m-auto mt-16 max-w-md p-8">
 	<Form {superform} className="space-y-8">
-		<h2>Request Reset Password</h2>
+		<h2 class="h2">Request Reset Password</h2>
 		<Input field="email" type="email" />
 		<SubmitButton />
 	</Form>

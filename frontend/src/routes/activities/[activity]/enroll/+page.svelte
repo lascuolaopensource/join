@@ -22,7 +22,7 @@
 <Backlink href={`/activities/${activity.slug}`}>Back to activity</Backlink>
 
 <h4>{activity.name}</h4>
-<h2>Enroll</h2>
+<h2 class="h2">Enroll</h2>
 <Form {superform}>
 	{#if user && !user.phone}
 		<Input field="phone" />

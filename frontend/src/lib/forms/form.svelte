@@ -23,11 +23,10 @@
 	import type { ZodValidation } from 'sveltekit-superforms';
 
 	// Components
-	import { Modal, modalStore } from '@skeletonlabs/skeleton';
+	import { getModalStore } from '@skeletonlabs/skeleton';
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 	import { ConicGradient } from '@skeletonlabs/skeleton';
 	import type { ConicStop } from '@skeletonlabs/skeleton';
-
 	//
 
 	export let superform: SuperForm<ZodValidation<T>, unknown>;
@@ -41,6 +40,8 @@
 		{ color: 'transparent', start: 0, end: 25 },
 		{ color: 'rgb(var(--color-primary-500))', start: 75, end: 100 }
 	];
+
+	const modalStore = getModalStore();
 
 	const modalComponent: ModalComponent = {
 		ref: ConicGradient,
@@ -72,7 +73,3 @@
 		<Alert color="red" accent={false} dismissable>{error}</Alert>
 	{/if} -->
 </form>
-
-<div class="fixed top-0 left-0">
-	<Modal />
-</div>

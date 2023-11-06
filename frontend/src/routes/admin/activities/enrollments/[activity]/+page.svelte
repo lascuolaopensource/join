@@ -40,7 +40,7 @@
 
 	<div class="my-4">
 		<h4>{activity.name}</h4>
-		<h2>Manage enrollments</h2>
+		<h2 class="h2">Manage enrollments</h2>
 	</div>
 
 	{#if enrollments}

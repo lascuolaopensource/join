@@ -1,7 +1,8 @@
 <script lang="ts">
-	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
-	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
+
+	import { Modal, initializeStores } from '@skeletonlabs/skeleton';
+	initializeStores();
 
 	import Heading from '$lib/components/heading.svelte';
 
@@ -15,5 +16,7 @@
 </svelte:head>
 
 <Heading {currentUser} />
-
+<div class="fixed top-0 left-0">
+	<Modal />
+</div>
 <slot />

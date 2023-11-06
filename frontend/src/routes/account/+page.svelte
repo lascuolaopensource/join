@@ -8,7 +8,7 @@
 
 <div class="container h-full p-5 flex">
 	<div class="space-y-8 text-left flex flex-col">
-		<h2 class="capitalize">info</h2>
+		<h2 class="h2 capitalize">info</h2>
 		<ul>
 			<li>Id: {user.id}</li>
 			<li>Name: {user.name} {user.surname}</li>
