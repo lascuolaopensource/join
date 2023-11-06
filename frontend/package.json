@@ -2,9 +2,15 @@
 	"name": "join-frontend",
 	"version": "0.0.1",
 	"private": true,
+	"engines": {
+		"node": ">=17",
+		"pnpm": ">=8"
+	},
 	"scripts": {
 		"dev": "vite dev",
+		"predev": "pnpm run definitions",
 		"build": "vite build",
+		"prebuild": "pnpm run definitions",
 		"preview": "vite preview",
 		"test": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -12,7 +18,8 @@
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-		"types": "npx pocketbase-typegen --db ../backend/pb_data/data.db --out ./src/lib/pocketbase/types.ts"
+		"types": "npx pocketbase-typegen --db ../backend/pb_data/data.db --out ./src/lib/pocketbase/types.ts",
+		"definitions": "pnpm types"
 	},
 	"devDependencies": {
 		"@floating-ui/dom": "^1.4.2",
