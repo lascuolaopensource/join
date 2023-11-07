@@ -11,10 +11,10 @@
 		<h2 class="h2 capitalize">info</h2>
 		<ul>
 			<li>Id: {user.id}</li>
-			<li>Name: {user.name} {user.surname}</li>
+			<li>Name: {user.info.name} {user.info.surname}</li>
 			<li>Email: {user.email}</li>
 			<li>Verified: {user.verified}</li>
-			<li>Role: {user.role}</li>
+			<li>Roles: {user.roles ? 'No role assigned' : user.roles}</li>
 		</ul>
 		<form method="post" action="/sendVerification" use:enhance>
 			<button class="btn variant-filled" type="submit">Send Email Verification</button>

@@ -22,7 +22,7 @@
 
 		<p>
 			Already registered?
-			<a href={paths.login}>Login</a>
+			<a class="text-primary-500 hover:underline" href={paths.login}>Login</a>
 		</p>
 
 		<SubmitButton />
