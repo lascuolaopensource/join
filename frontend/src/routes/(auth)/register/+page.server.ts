@@ -36,7 +36,7 @@ export const actions: Actions = {
 				passwordConfirm: form.data.passwordConfirm,
 				info: new_user_info.id
 			});
-			// await pb.collection(Collections.Users).requestVerification(form.data.email);
+			await pb.collection(Collections.Users).requestVerification(form.data.email);
 		} catch (error) {
 			return fail(400, { form });
 		}
