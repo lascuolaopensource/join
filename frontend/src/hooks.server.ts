@@ -1,6 +1,11 @@
 import paths from '$lib/constants/paths';
 import { pb } from '$lib/pocketbase';
-import { Collections, type UsersInfoResponse, type UsersResponse } from '$lib/pocketbase/types';
+import {
+	Collections,
+	type UsersInfoResponse,
+	type UsersResponse,
+	type UsersRolesResponse
+} from '$lib/pocketbase/types';
 import { redirect, type Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -15,17 +20,29 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	event.locals.pb = pb;
 
+	//
+
 	if (pb.authStore.model === null) {
 		event.locals.user = null;
 	} else {
 		const INFO_EXPAND = 'info';
-		const userWithInfo = await pb
+		const ROLES_EXPAND = 'roles';
+
+		type UserQuery = UsersResponse<{
+			[INFO_EXPAND]: UsersInfoResponse;
+			[ROLES_EXPAND]: UsersRolesResponse[];
+		}>;
+
+		const userWithInfoAndRoles = await pb
 			.collection(Collections.Users)
-			.getOne<UsersResponse<{ [INFO_EXPAND]: UsersInfoResponse }>>(pb.authStore.model.id, {
-				expand: INFO_EXPAND
+			.getOne<UserQuery>(pb.authStore.model.id, {
+				expand: [INFO_EXPAND, ROLES_EXPAND].join(',')
 			});
-		event.locals.user = structuredClone(userWithInfo);
+
+		event.locals.user = structuredClone(userWithInfoAndRoles);
 	}
+
+	//
 
 	// if NOT logged can't access to /account
 	if (event.url.pathname.startsWith(paths.account)) {

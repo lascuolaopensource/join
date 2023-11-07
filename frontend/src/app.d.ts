@@ -9,6 +9,7 @@ declare global {
 			user:
 				| import('./lib/pocketbase/types').UsersResponse<{
 						info: import('./lib/pocketbase/types').UsersInfoResponse;
+						roles: import('./lib/pocketbase/types').UsersRolesResponse[];
 				  }>
 				| null;
 		}
