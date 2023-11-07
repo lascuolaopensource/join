@@ -25,11 +25,13 @@
 
 		<p>
 			Forgot Password?
-			<a href={paths.passwordReset.forgot}>Reset Password</a>
+			<a class="text-primary-500 hover:underline" href={paths.passwordReset.forgot}
+				>Reset Password</a
+			>
 		</p>
 		<p>
 			Don't have an account?
-			<a href={paths.register.index}>Register</a>
+			<a class="text-primary-500 hover:underline" href={paths.register.index}>Register</a>
 		</p>
 
 		<SubmitButton />

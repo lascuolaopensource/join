@@ -1,10 +1,13 @@
 import paths from '$lib/constants/paths';
 import { redirect } from '@sveltejs/kit';
 import { pb } from '$lib/pocketbase';
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
+import { Collections } from '$lib/pocketbase/types';
 
-export const load = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals?.user) throw redirect(302, paths.login);
+	const user_info = await pb.collection(Collections.UsersInfo).getOne(locals.user.info);
+	locals.user.info = user_info;
 	return { user: locals.user };
 };
 
