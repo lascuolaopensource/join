@@ -1,5 +1,6 @@
 import paths from '$lib/constants/paths';
 import { pb } from '$lib/pocketbase';
+import { Collections, type UsersInfoResponse, type UsersResponse } from '$lib/pocketbase/types';
 import { redirect, type Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -11,8 +12,20 @@ export const handle: Handle = async ({ event, resolve }) => {
 			pb.authStore.clear();
 		}
 	}
+
 	event.locals.pb = pb;
-	event.locals.user = structuredClone(pb.authStore.model);
+
+	if (pb.authStore.model === null) {
+		event.locals.user = null;
+	} else {
+		const INFO_EXPAND = 'info';
+		const userWithInfo = await pb
+			.collection(Collections.Users)
+			.getOne<UsersResponse<{ [INFO_EXPAND]: UsersInfoResponse }>>(pb.authStore.model.id, {
+				expand: INFO_EXPAND
+			});
+		event.locals.user = structuredClone(userWithInfo);
+	}
 
 	// if NOT logged can't access to /account
 	if (event.url.pathname.startsWith(paths.account)) {
