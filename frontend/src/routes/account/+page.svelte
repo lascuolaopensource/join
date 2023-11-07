@@ -11,14 +11,15 @@
 		<h2 class="h2 capitalize">info</h2>
 		<ul>
 			<li>Id: {user.id}</li>
-			<li>Name: {user.info.name} {user.info.surname}</li>
 			<li>Email: {user.email}</li>
+			<li>Name: {user.expand?.info.name} {user.expand?.info.surname}</li>
 			<li>Verified: {user.verified}</li>
-			<li>Roles: {user.roles ? 'No role assigned' : user.roles}</li>
+			<li>Bio: {user.expand?.info.bio}</li>
 		</ul>
-		<form method="post" action="/sendVerification" use:enhance>
-			<button class="btn variant-filled" type="submit">Send Email Verification</button>
-		</form>
-		<a href={paths.passwordReset.forgot} class="btn variant-filled">Reset Password</a>
+		{#if !user.verified}
+			<form method="post" action="?/sendVerification" use:enhance>
+				<button class="btn variant-filled" type="submit">Send Email Verification</button>
+			</form>
+		{/if}
 	</div>
 </div>
