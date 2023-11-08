@@ -7,8 +7,7 @@ import { Collections } from '$lib/pocketbase/types';
 import { activitySchema } from './schema';
 import { convertToSlug } from '$lib/server/utility';
 
-export const load = async ({ locals }) => {
-	if (locals.user?.role !== 'activitiesAdmin') throw redirect(302, paths.activities.index);
+export const load = async () => {
 	const form = await superValidate(activitySchema);
 	return { form };
 };
