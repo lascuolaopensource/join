@@ -7,7 +7,7 @@ import {
 	type ActivitiesResponse,
 	type EnrollmentsDataResponse
 } from '$lib/pocketbase/types';
-import { activitiesSchema } from '../_lib/schema';
+import { activitiesSchema } from '../_lib/schemas';
 
 export const load = async ({ params }) => {
 	const enrollments_data_expand = 'enrollments_data';
@@ -16,8 +16,6 @@ export const load = async ({ params }) => {
 		.getOne<ActivitiesResponse<{ [enrollments_data_expand]: EnrollmentsDataResponse }>>(params.id, {
 			expand: 'enrollments_data'
 		});
-
-	console.log(activity);
 
 	const form = await superValidate(activity, activitiesSchema, {
 		id: 'create'

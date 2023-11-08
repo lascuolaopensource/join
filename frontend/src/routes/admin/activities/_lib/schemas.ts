@@ -4,7 +4,7 @@ import type { ActivitiesRecord, EnrollmentsDataRecord } from '$lib/pocketbase/ty
 export const activitiesSchema = z.object({
 	name: z.string(),
 	description: z.string(),
-	gallery: z.any().optional(),
+	gallery: z.array(z.any().optional()).optional(),
 	slug: z.string(),
 	enrollment_data: z.string().optional()
 } satisfies Record<keyof ActivitiesRecord, ZodTypeAny>);

@@ -3,10 +3,10 @@ import { superValidate } from 'sveltekit-superforms/server';
 import { fail, redirect } from '@sveltejs/kit';
 import { pb } from '$lib/pocketbase';
 import { Collections } from '$lib/pocketbase/types';
-import { activitiesSchema } from '../_lib/schema';
+import { activitiesSchema } from '../_lib/schemas';
 
 export const load = async () => {
-	const form = await superValidate(activitiesSchema, { id: 'create' });
+	const form = await superValidate(activitiesSchema);
 	return { form };
 };
 
@@ -16,6 +16,7 @@ export const actions: Actions = {
 		const form = await superValidate(data, activitiesSchema);
 
 		if (!form.valid) return fail(400, { form });
+		// TODO – Check for empty undefined file
 
 		let activityId: string;
 		try {

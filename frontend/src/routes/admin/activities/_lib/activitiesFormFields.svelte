@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { SuperForm } from 'sveltekit-superforms/client';
 	import Input from '$lib/forms/input.svelte';
+	import FileInput from '$lib/forms/fileInput.svelte';
 	import { slugify } from '$lib/utils/index.js';
-	import type { activitiesSchema } from './schema';
+	import type { activitiesSchema } from './schemas';
 	import type { ZodValidation } from 'sveltekit-superforms';
 
 	export let superform: SuperForm<ZodValidation<typeof activitiesSchema>, any>;
@@ -26,4 +27,4 @@
 	</div>
 </div>
 <Input field="description" />
-<Input field="gallery" type="file" />
+<FileInput field="gallery" multiple />
