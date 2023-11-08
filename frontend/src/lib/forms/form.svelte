@@ -27,12 +27,15 @@
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 	import { ConicGradient } from '@skeletonlabs/skeleton';
 	import type { ConicStop } from '@skeletonlabs/skeleton';
+
 	//
 
 	export let superform: SuperForm<ZodValidation<T>, unknown>;
 	export let showRequiredIndicator = false;
+	export let action: string | undefined = undefined;
 
-	export let className = 'space-y-6';
+	let className = 'space-y-6';
+	export { className as class };
 
 	//
 
@@ -66,7 +69,7 @@
 	setContext<FormContext<T>>(FORM_KEY, { superform, showRequiredIndicator });
 </script>
 
-<form class={className} method="post" use:enhance enctype="multipart/form-data">
+<form class={className} method="post" {action} use:enhance enctype="multipart/form-data">
 	<slot />
 
 	<!-- {#if error}
