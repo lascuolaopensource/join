@@ -24,17 +24,21 @@ export const load = async ({ params }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request }) => {
-		// const data = await request.formData();
-		// const form = await superValidate(data, activitiesSchema);
-		// if (!form.valid) return fail(400, { form });
-		// let activityId: string;
-		// try {
-		// 	const activity = await pb.collection(Collections.Activities).create(data);
-		// 	activityId = activity.id;
-		// } catch (error) {
-		// 	return fail(400, { form });
-		// }
-		// throw redirect(302, `/admin/activities/${activityId}`);
-	}
+	updateActivity: async ({ request, params }) => {
+		const activityId = params.id;
+		const data = await request.formData();
+		const form = await superValidate(data, activitiesSchema);
+		const gallery:File[] = data.getAll('gallery') as File[];
+		if (!form.valid) return fail(400, { form });
+		
+		try {
+			if(gallery[0].size === 0) data.delete('gallery');
+			await pb.collection(Collections.Activities).update(activityId,data);
+		} catch (error) {
+			console.log(error);
+			return fail(400, { form });
+		}
+
+		return { form };
+	},
 };

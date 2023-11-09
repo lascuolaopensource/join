@@ -13,7 +13,7 @@
 <div class="card m-auto mt-10 max-w-md p-5 space-y-6">
 	<h3 class="h3">Info</h3>
 	<hr />
-	<Form {superform}>
+	<Form {superform} action="?/updateActivity">
 		<ActivitiesFormFields {superform} />
 		<SubmitButton>Update activity</SubmitButton>
 	</Form>
