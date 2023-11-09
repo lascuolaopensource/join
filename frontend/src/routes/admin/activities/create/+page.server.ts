@@ -14,12 +14,13 @@ export const actions: Actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
 		const form = await superValidate(data, activitiesSchema);
-
+		const gallery:File[] = data.getAll('gallery') as File[];
+		
 		if (!form.valid) return fail(400, { form });
-		// TODO – Check for empty undefined file
 
 		let activityId: string;
 		try {
+			if(gallery[0].size === 0) data.delete('gallery');
 			const activity = await pb.collection(Collections.Activities).create(data);
 			activityId = activity.id;
 		} catch (error) {
