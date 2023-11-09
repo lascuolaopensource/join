@@ -7,7 +7,7 @@
 		"pnpm": ">=8"
 	},
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --port 7173",
 		"predev": "pnpm run definitions",
 		"build": "vite build",
 		"prebuild": "pnpm run definitions",
