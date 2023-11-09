@@ -37,7 +37,7 @@ clean: clean_backend clean_frontend ## 🧹 Clean the project build
 
 be: ## ⚙️ Run the backend locally
 	@echo "⚙️ Run the backend locally"
-	./backend/pb serve
+	./backend/pb serve --http="127.0.0.1:7090"
 
 be_up: ## ⚙️ Run the backend in docker
 	@echo "⚙️ Run the backend in docker"
