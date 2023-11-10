@@ -1,39 +1,35 @@
 import type { Actions } from './$types';
 import { superValidate } from 'sveltekit-superforms/server';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { pb } from '$lib/pocketbase';
-import {
-	Collections,
-	type ActivitiesResponse,
-	type EnrollmentsDataResponse
-} from '$lib/pocketbase/types';
-import { activitiesSchema } from '../_lib/schemas';
+import { Collections, type ActivitiesRecord } from '$lib/pocketbase/types';
+import { activitiesSchema, enrollmentDataSchema } from '../_lib/schemas';
+import { removeEmptyFilesFromFormData } from '$lib/server/utility';
+import { getActivityWithEnrollmentData } from '$lib/server/calls';
 
-export const load = async ({ params }) => {
-	const enrollments_data_expand = 'enrollments_data';
-	const activity = await pb
-		.collection(Collections.Activities)
-		.getOne<ActivitiesResponse<{ [enrollments_data_expand]: EnrollmentsDataResponse }>>(params.id, {
-			expand: 'enrollments_data'
-		});
+//
 
-	const form = await superValidate(activity, activitiesSchema, {
-		id: 'create'
-	});
-	return { form };
+//
+
+export const load = async ({ params, fetch }) => {
+	const { activity, enrollmentData } = await getActivityWithEnrollmentData(params.id, fetch);
+	const activityForm = await superValidate(activity, activitiesSchema);
+	const enrollmentsDataForm = await superValidate(enrollmentData, enrollmentDataSchema);
+
+	return { activityForm, enrollmentsDataForm, activity, enrollmentData };
 };
 
 export const actions: Actions = {
-	updateActivity: async ({ request, params }) => {
+	activity: async ({ request, params, fetch }) => {
 		const activityId = params.id;
 		const data = await request.formData();
 		const form = await superValidate(data, activitiesSchema);
-		const gallery:File[] = data.getAll('gallery') as File[];
 		if (!form.valid) return fail(400, { form });
-		
+
 		try {
-			if(gallery[0].size === 0) data.delete('gallery');
-			await pb.collection(Collections.Activities).update(activityId,data);
+			await pb
+				.collection(Collections.Activities)
+				.update(activityId, removeEmptyFilesFromFormData(data), { fetch });
 		} catch (error) {
 			console.log(error);
 			return fail(400, { form });
@@ -41,4 +37,26 @@ export const actions: Actions = {
 
 		return { form };
 	},
+	enrollment_data: async ({ request, params, fetch }) => {
+		const activityId = params.id;
+		const data = await request.formData();
+		const form = await superValidate(data, enrollmentDataSchema);
+		if (!form.valid) return fail(400, { form });
+
+		try {
+			const activityData = await getActivityWithEnrollmentData(activityId, fetch);
+			const enrollmentData = activityData.enrollmentData;
+			if (!enrollmentData) {
+				const record = await pb.collection(Collections.EnrollmentsData).create(data, { fetch });
+				await pb
+					.collection(Collections.Activities)
+					.update(params.id, { enrollment_data: record.id } satisfies Partial<ActivitiesRecord>);
+			} else {
+				await pb.collection(Collections.EnrollmentsData).update(enrollmentData.id, data, { fetch });
+			}
+		} catch (error) {
+			console.log(error);
+			return fail(400, { form });
+		}
+	}
 };
