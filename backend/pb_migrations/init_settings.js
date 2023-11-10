@@ -13,7 +13,7 @@ migrate((db) => {
   settings.meta.senderName = "☠️ JOIN ☠️";
   settings.meta.senderAddress = "join@lascuolaopensource.xyz";
   settings.meta.verificationTemplate.actionUrl =
-    "{APP_URL}/register/verify/{TOKEN}";
+    "{APP_URL}/register/verify-{TOKEN}";
   settings.meta.resetPasswordTemplate.actionUrl =
     "{APP_URL}/password-reset/{TOKEN}";
 

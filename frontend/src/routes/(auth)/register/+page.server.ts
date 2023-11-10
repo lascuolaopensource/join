@@ -2,10 +2,9 @@ import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { registerSchema } from './schema';
-import { pb } from '$lib/pocketbase';
 import paths from '$lib/constants/paths';
-import { Collections } from '$lib/pocketbase/types';
-import type { RecordModel } from 'pocketbase';
+import { Collections, type UsersInfoRecord } from '$lib/pocketbase/types';
+import { useAdminContext } from '$lib/server/pocketbase';
 
 //
 
@@ -22,21 +21,23 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 		try {
-			const user_info = {
-				name: form.data.name,
-				surname: form.data.surname
-			};
-			const new_user_info: RecordModel = await pb
-				.collection(Collections.UsersInfo)
-				.create(user_info);
-			await pb.collection(Collections.Users).create({
-				email: form.data.email,
-				emailVisibility: true,
-				password: form.data.password,
-				passwordConfirm: form.data.passwordConfirm,
-				info: new_user_info.id
+			await useAdminContext(async (pb) => {
+				const userInfoData: UsersInfoRecord = {
+					name: form.data.name,
+					surname: form.data.surname
+				};
+				const userInfo = await pb.collection(Collections.UsersInfo).create(userInfoData);
+
+				await pb.collection(Collections.Users).create({
+					email: form.data.email,
+					emailVisibility: false,
+					password: form.data.password,
+					passwordConfirm: form.data.passwordConfirm,
+					info: userInfo.id
+				});
+
+				await pb.collection(Collections.Users).requestVerification(form.data.email);
 			});
-			await pb.collection(Collections.Users).requestVerification(form.data.email);
 		} catch (error) {
 			return fail(400, { form });
 		}
