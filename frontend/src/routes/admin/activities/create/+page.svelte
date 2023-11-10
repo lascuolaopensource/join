@@ -1,26 +1,17 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
+	import ActivitiesFormFields from '../_lib/activitiesFormFields.svelte';
 	import Form from '$lib/forms/form.svelte';
-	import Input from '$lib/forms/input.svelte';
 	import SubmitButton from '$lib/forms/submitButton.svelte';
-	import { activitySchema } from './schema';
 
 	export let data;
-
-	const superform = superForm(data.form, { validators: activitySchema });
+	const superform = superForm(data.form);
 </script>
 
-<div class="card m-auto mt-10 max-w-md p-5">
+<div class="max-w-xl mx-auto p-6">
+	<h3 class="h3 mb-8">Create new activity</h3>
 	<Form {superform}>
-		<h2 class="h2">New Activity</h2>
-		<Input field="name" />
-		<Input field="description" />
-		<Input field="price" type="number" />
-		<Input field="gallery" type="file" />
-		<Input field="enrollmentMin" type="number" />
-		<Input field="enrollmentMax" type="number" />
-		<Input field="enrollmentDeadline" type="date" />
-
-		<SubmitButton />
+		<ActivitiesFormFields {superform} />
+		<SubmitButton>Create activity</SubmitButton>
 	</Form>
 </div>

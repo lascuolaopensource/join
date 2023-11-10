@@ -11,8 +11,9 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="trail">
-		<a href={paths.activities.index}>Activities</a>
+		<a href={paths.activities.index}>Public Activities</a>
 		{#if currentUser}
+			<a href={paths.admin.activities.index}>Admin Activities</a>
 			<a href={paths.account}>Account</a>
 			<form method="POST" action="/logout" use:enhance>
 				<button type="submit">Logout</button>

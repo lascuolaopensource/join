@@ -24,6 +24,10 @@ export default {
 		}
 	},
 	admin: {
+		activities:{
+			index: '/admin/activities',
+			create: '/admin/activities/create'
+		},
 		enrollments: {
 			index: '/admin/enrollments',
 			archive: '/admin/enrollments?archive=true'

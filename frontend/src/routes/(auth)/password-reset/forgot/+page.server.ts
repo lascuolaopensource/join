@@ -13,7 +13,7 @@ export const load: ServerLoad = async () => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, params }) => {
+	default: async ({ request }) => {
 		const data = await request.formData();
 		const form = await superValidate(data, requestPasswordResetSchema);
 

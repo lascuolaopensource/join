@@ -13,7 +13,6 @@
 					{@html activity.description}
 				</section>
 				<footer class="card-footer">
-					<p>Price: {activity.price}</p>
 					<a href="/activities/{activity.slug}" class="btn variant-filled">Show</a>
 				</footer>
 			</div>

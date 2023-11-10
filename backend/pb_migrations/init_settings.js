@@ -6,7 +6,7 @@ migrate((db) => {
 
   // GENERAL
   settings.meta.appName = "☠️ JOIN ☠️";
-  settings.meta.appUrl = "http://localhost:5173";
+  settings.meta.appUrl = "http://localhost:7173";
   settings.logs.maxDays = 2;
 
   // EMAIL
