@@ -3,8 +3,8 @@ import type { Actions } from './$types';
 import { fail, redirect, type ServerLoad } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { passwordResetSchema } from './schema';
-import { pb } from '$lib/pocketbase';
 import { Collections } from '$lib/pocketbase/types';
+import { useAdminContext } from '$lib/server/pocketbase';
 
 //
 
@@ -22,12 +22,13 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 		try {
-			const token = params.token;
-			if (token) {
+			await useAdminContext(async (pb) => {
+				const token = params.token;
+				if (!token) return;
 				await pb
 					.collection(Collections.Users)
 					.confirmPasswordReset(token, form.data.password, form.data.passwordConfirm);
-			}
+			});
 		} catch (error) {
 			return fail(400, { form });
 		}

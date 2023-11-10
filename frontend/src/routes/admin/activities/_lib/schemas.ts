@@ -12,7 +12,10 @@ export const activitiesSchema = z.object({
 export const enrollmentDataSchema = z.object({
 	partecipants_min: z.number().optional(),
 	partecipants_max: z.number().optional(),
-	deadline: z.date(),
+	deadline: z.string(),
 	price: z.number().optional(),
 	requirements: z.array(z.string().optional()).optional()
 } satisfies Record<Exclude<keyof EnrollmentsDataRecord, 'confirmed'>, ZodTypeAny>);
+
+// min < max
+// deadline > today

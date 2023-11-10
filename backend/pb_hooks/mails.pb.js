@@ -2,10 +2,9 @@
 
 routerAdd("POST", "/send-mail", (c) => {
   const postData = $apis.requestInfo(c).data;
-  const requestUser = $apis.requestInfo(c).authRecord;
+  const admin = $apis.requestInfo(c).admin;
 
-  if (!requestUser) return;
-  // if (requestUser.get('roles'))
+  if (!admin) return;
 
   const message = new MailerMessage({
     from: {

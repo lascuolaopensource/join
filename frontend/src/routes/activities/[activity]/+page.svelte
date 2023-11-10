@@ -2,10 +2,7 @@
 	import { page } from '$app/stores';
 
 	export let data;
-	const { activity } = data;
-
-	console.log($page.route, $page.url);
-
+	const { activity, enrollmentData } = data;
 	const enrollUrl = `${$page.url.pathname}/enroll`;
 </script>
 
@@ -13,4 +10,6 @@
 <div>
 	{@html activity.description}
 </div>
-<a href={enrollUrl} class="btn variant-filled">Enroll!</a>
+{#if enrollmentData}
+	<a href={enrollUrl} class="btn variant-filled">Enroll!</a>
+{/if}
